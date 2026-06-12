@@ -5,10 +5,6 @@ on:
     branches:
       - principal
 
-  pull_request:
-    branches:
-      - principal
-
 jobs:
   build:
     runs-on: ubuntu-latest
