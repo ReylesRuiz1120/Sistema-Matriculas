@@ -68,7 +68,7 @@ namespace T3_09.Controllers
                     NomUsuario = usuarioVM.Nombre,
                     ApeUsuario = usuarioVM.Apellido,
                     Correo = usuarioVM.Correo,
-                    Password = usuarioVM.Contraseña,
+                    Password = usuarioVM.Contrasena,
                     idRol = usuarioVM.Id_Rol
                 };
 
@@ -122,10 +122,10 @@ namespace T3_09.Controllers
             ModelState.Remove("Roles");
             ModelState.Remove("Usuarios");
 
-            if (string.IsNullOrEmpty(usuarioVM.Contraseña))
+            if (string.IsNullOrEmpty(usuarioVM.Contrasena))
             {
-                ModelState.Remove("Contraseña");
-                ModelState.Remove("Repite_Contraseña");
+                ModelState.Remove("Contrasena");
+                ModelState.Remove("RepiteContrasena");
             }
 
             if (!ModelState.IsValid)
@@ -143,9 +143,9 @@ namespace T3_09.Controllers
             usuario.Correo = usuarioVM.Correo;
             usuario.idRol = usuarioVM.Id_Rol;
 
-            if (!string.IsNullOrEmpty(usuarioVM.Contraseña))
+            if (!string.IsNullOrEmpty(usuarioVM.Contrasena))
             {
-                usuario.Password = usuarioVM.Contraseña;
+                usuario.Password = usuarioVM.Contrasena;
             }
 
             try

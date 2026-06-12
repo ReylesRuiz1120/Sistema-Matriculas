@@ -1,4 +1,4 @@
-﻿    using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using T3_09.Data;
 using T3_09.Models;
@@ -36,7 +36,7 @@ namespace T3_09.Controllers
                 return View(usuarioVM);
             }
 
-            if (usuarioVM.Contraseña != usuarioVM.Repite_Contraseña)
+            if (usuarioVM.Contrasena != usuarioVM.RepiteContrasena)
             {
                 ViewData["Mensaje"] = "Las contraseñas no coinciden";
                 return View(usuarioVM);
@@ -47,7 +47,7 @@ namespace T3_09.Controllers
                 NomUsuario = usuarioVM.Nombre,
                 ApeUsuario = usuarioVM.Apellido,
                 Correo = usuarioVM.Correo,
-                Password = usuarioVM.Contraseña,
+                Password = usuarioVM.Contrasena,
                 idRol = usuarioVM.Id_Rol
             };
 
@@ -83,7 +83,7 @@ namespace T3_09.Controllers
             Usuario? usuario_encontrado = await _appDbContext.Usuarios
                                             .Include(u => u.Rol)
                                             .FirstOrDefaultAsync(u => u.Correo == loginVM.Correo &&
-                                                                    u.Password == loginVM.Contraseña);
+                                                                    u.Password == loginVM.Contrasena);
 
             if (usuario_encontrado == null)
             {

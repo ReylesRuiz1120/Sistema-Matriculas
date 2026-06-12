@@ -12,11 +12,11 @@ namespace T3_09.ViewModels
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Mínimo 2 caracteres")]
         [RegularExpression(@"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$", ErrorMessage = "Solo letras")]
-        public string NombreCompleto { get; set; }
+        public string? NombreCompleto { get; set; }
 
         [Required(ErrorMessage = "El DNI es obligatorio")]
         [RegularExpression(@"^\d{8}$", ErrorMessage = "Deben ser 8 dígitos")]
-        public string Dni { get; set; }
+        public string? Dni { get; set; }
 
         [Required(ErrorMessage = "La fecha es obligatoria")]
         [DataType(DataType.Date)]
@@ -25,10 +25,10 @@ namespace T3_09.ViewModels
         public DateTime FechaNacimiento { get; set; }
 
         [Required(ErrorMessage = "La dirección es obligatoria")]
-        public string Direccion { get; set; }
+        public string? Direccion { get; set; }
 
         [Required(ErrorMessage = "El apoderado es obligatorio")]
-        public string NombreApoderado { get; set; }
+        public string? NombreApoderado { get; set; }
     }
 
     //validación personalizada para rango de edades
