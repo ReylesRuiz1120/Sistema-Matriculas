@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using T3_09.Controllers;
 using T3_09.ViewModels;
 using TestProject.Helpers;
@@ -65,7 +66,7 @@ namespace TestProject.Unit.Controllers
             var ctx = TestDbContextFactory.Create("acc_login_invalid");
             var controller = new AccesoController(ctx);
             controller.TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider());
-            var vm = new LoginVM { Correo = "nope@x.com", Contraseña = "wrong" };
+            var vm = new LoginVM {Correo = "nope@x.com", Contraseña = "wrong"};
             var result = await controller.Login(vm);
             var view = result as ViewResult;
             Assert.IsNotNull(view);
