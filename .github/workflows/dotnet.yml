@@ -3,29 +3,24 @@ name: Build and Test
 on:
   push:
     branches:
-      - principal
+      - main
   pull_request:
     branches:
-      - principal
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: '8.0.x'
 
-      - name: Restore
-        run: dotnet restore T3_09.sln
+      - run: dotnet restore T3_09.sln
 
-      - name: Build
-        run: dotnet build T3_09.sln --configuration Release --no-restore
+      - run: dotnet build T3_09.sln --configuration Release --no-restore
 
-      - name: Test
-        run: dotnet test T3_09.sln --no-build
+      - run: dotnet test T3_09.sln --no-build
