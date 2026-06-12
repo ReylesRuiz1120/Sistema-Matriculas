@@ -1,0 +1,56 @@
+﻿@model T3_09.ViewModels.UsuarioVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Editar Usuario</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Editar" asp-route-id="@Model.IdUsuario" method="post">
+
+            <input type="hidden" asp-for="IdUsuario" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="Nombre" class="form-control" required />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Apellido</label>
+                <input asp-for="Apellido" class="form-control" required />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Correo</label>
+                <input asp-for="Correo" class="form-control" required />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nueva Contraseña (Dejar en blanco para mantener la actual)</label>
+                <input asp-for="Contraseña" type="password" class="form-control" />
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Repetir Contraseña</label>
+                <input asp-for="Repite_Contraseña" type="password" class="form-control" />
+                <span asp-validation-for="Repite_Contraseña" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Rol</label>
+                <select asp-for="Id_Rol" class="form-select" asp-items="@(new SelectList(Model.Roles, "IdRol", "NomRol"))"></select>
+                <span asp-validation-for="Id_Rol" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a asp-action="Gestionar" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>

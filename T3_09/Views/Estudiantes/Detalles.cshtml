@@ -1,0 +1,125 @@
+﻿@model T3_09.ViewModels.EstudianteDetalleVM
+
+@{
+    ViewData["Title"] = "Ficha del Estudiante";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 rounded-3 overflow-hidden">
+
+                <div class="card-header bg-primary bg-gradient text-white text-center py-4 position-relative">
+                    <div class="mb-3">
+                        <i class="bi bi-person-circle" style="font-size: 4rem; opacity: 0.9;"></i>
+                    </div>
+                    <h2 class="fw-bold mb-0 text-uppercase">FICHA DEL ESTUDIANTE</h2>
+                    <p class="mb-0 text-warning small text-uppercase fw-bold">Información Académica y Personal</p>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-5">
+                        <h6 class="text-muted text-uppercase letter-spacing-2">Nombre Completo</h6>
+                        <h1 class="display-6 fw-bold text-dark">@Model.NombreCompleto</h1>
+                        <div class="d-inline-block border-bottom border-3 border-warning w-25 mt-2"></div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 border rounded bg-light h-100">
+                                <div class="bg-primary text-white rounded-circle p-3 me-3">
+                                    <i class="bi bi-card-heading fs-4"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted fw-bold d-block text-uppercase">DNI</small>
+                                    <span class="fs-5 fw-bold text-dark">@Model.Dni</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 border rounded bg-light h-100">
+                                <div class="@(Model.SituacionMatricula == "Matriculado" ? "bg-success" : "bg-danger") text-white rounded-circle p-3 me-3">
+                                    <i class="bi bi-backpack-fill fs-4"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted fw-bold d-block text-uppercase">Estado de Matrícula</small>
+
+                                    @if (Model.SituacionMatricula == "Matriculado")
+                                    {
+                                        <div class="text-success fw-bold text-uppercase">
+                                            <i class="bi bi-check-circle-fill"></i> MATRICULADO
+                                        </div>
+                                        <div class="fs-5 fw-bold text-dark">
+                                            @Model.GradoSeccion
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="fs-6 fw-bold text-danger">Sin Matrícula Activa</span>
+                                        <div class="small text-muted">No asignado a aula</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 border rounded bg-light h-100">
+                                <div class="bg-success text-white rounded-circle p-3 me-3">
+                                    <i class="bi bi-calendar-event fs-4"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted fw-bold d-block text-uppercase">Fecha de Nacimiento</small>
+                                    <span class="fs-5 fw-bold text-dark">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 border rounded bg-light h-100">
+                                <div class="bg-danger text-white rounded-circle p-3 me-3">
+                                    <i class="bi bi-geo-alt-fill fs-4"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted fw-bold d-block text-uppercase">Dirección</small>
+                                    <span class="fs-6 fw-bold text-dark">
+                                        @(string.IsNullOrEmpty(Model.Direccion) ? "Sin registrar" : Model.Direccion)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="d-flex align-items-center p-3 border rounded bg-light h-100">
+                                <div class="bg-warning text-dark rounded-circle p-3 me-3">
+                                    <i class="bi bi-people-fill fs-4"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted fw-bold d-block text-uppercase">Apoderado Responsable</small>
+                                    <span class="fs-6 fw-bold text-dark">@Model.NombreApoderado</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-5 d-flex justify-content-between align-items-center border-top pt-4">
+                        <a asp-action="Listar" class="btn btn-outline-secondary px-4 rounded-pill fw-bold">
+                            <i class="bi bi-arrow-left"></i> Volver a la Lista
+                        </a>
+
+                        <a asp-action="Editar" asp-route-id="@Model.IdEstudiante" class="btn btn-warning px-4 rounded-pill fw-bold shadow-sm">
+                            <i class="bi bi-pencil-square"></i> Editar Datos
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

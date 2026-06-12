@@ -1,0 +1,74 @@
+﻿@model T3_09.ViewModels.LoginVM
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+
+    <div class="col-md-5 col-lg-4 d-none d-md-flex justify-content-center align-items-center">
+
+        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json"
+                       background="transparent"
+                       speed="1"
+                       style="width: 350px; height: 350px;"
+                       loop
+                       autoplay>
+        </lottie-player>
+
+    </div>
+
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-header bg-primary text-white text-center py-3 rounded-top">
+                <h4 class="mb-0 fw-bold"><i class="bi bi-person-circle"></i> Iniciar Sesión</h4>
+            </div>
+            <div class="card-body p-4">
+
+                <p class="text-muted text-center mb-4">Ingresa tus credenciales para acceder al sistema</p>
+
+                <form asp-controller="Acceso" asp-action="Login" method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-secondary">Correo Electrónico</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope"></i></span>
+                            <input class="form-control border-start-0 ps-0" type="email" placeholder="nombre@correo.com" required asp-for="Correo" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-secondary">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-key"></i></span>
+                            <input class="form-control border-start-0 ps-0" type="password" placeholder="******" required asp-for="Contraseña" />
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4 mb-3">
+                        <button class="btn btn-warning fw-bold text-dark shadow-sm" type="submit">
+                            INGRESAR AL SISTEMA
+                        </button>
+                    </div>
+                </form>
+
+                @if (ViewData["Mensaje"] != null)
+                {
+                    <div class="alert alert-danger text-center mt-3" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i> @ViewData["Mensaje"]
+                    </div>
+                }
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <span class="text-muted">¿No tienes una cuenta? Registrarte antes de solicitar tu matricula</span><br>
+                    <a asp-controller="Acceso" asp-action="Registro" class="text-decoration-none fw-bold text-primary">
+                        ¡Regístrate!
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-player/2.0.2/lottie-player.js"></script>

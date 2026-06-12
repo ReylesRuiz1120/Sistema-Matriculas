@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model IEnumerable<T3_09.ViewModels.EstudianteIndexVM>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Gestión de Estudiantes</h2>
+        <div>
+            <span class="text-muted me-2">Modo Administrador</span>   
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6 d-flex gap-2">
+            <a asp-action="Crear" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Nuevo Estudiante
+            </a>
+            <a asp-controller="Matricula" asp-action="SolicitudesPendientes" class="btn btn-warning fw-bold">
+                <i class="bi bi-inbox-fill"></i> Ver Solicitudes
+            </a>
+        </div>
+        <div class="col-md-6">
+            <form asp-action="Listar" method="get" class="d-flex">
+                <input type="text" name="buscarDni" class="form-control me-2" placeholder="Ingrese DNI para buscar..." />
+                <button type="submit" class="btn btn-dark"><i class="bi bi-search"></i> Buscar</button>
+                <a asp-action="Listar" class="btn btn-outline-secondary ms-2">Limpiar</a>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-hover table-bordered shadow-sm align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre Completo</th>
+                <th>DNI</th>
+                <th>Apoderado</th>
+                <th>grado asignado</th>
+                <th>Fecha Nacimiento</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr><td colspan="5" class="text-center text-muted">No se encontraron estudiantes</td></tr>
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="fw-bold">@item.NombreCompleto</td>
+                    <td>@item.Dni</td>
+                    <td>@item.NombreApoderado</td>
+                    <td>@item.AulaAsignada</td>
+                    <td>@item.FechaNacimiento.ToString("dd/MM/yyyy")</td>
+
+                    <td class="text-center">
+                        <div class="btn-group" role="group">
+                            <a asp-action="Editar" asp-route-id="@item.IdEstudiante" class="btn btn-sm btn-warning" title="Editar"><i class="bi bi-pencil"></i></a>
+                            <a asp-action="Detalles" asp-route-id="@item.IdEstudiante" class="btn btn-sm btn-info text-white" title="Ver Detalles"><i class="bi bi-eye"></i></a>
+                            <a asp-action="Eliminar" asp-route-id="@item.IdEstudiante" class="btn btn-sm btn-danger" title="Eliminar"><i class="bi bi-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

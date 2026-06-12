@@ -1,0 +1,83 @@
+﻿@model T3_09.ViewModels.UsuarioVM
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro - Sistema Matrícula</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-sm-6">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white text-center">
+                        <h4>Crear Cuenta Nueva</h4>
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="Acceso" asp-action="Registro" method="post">
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nombre</label>
+                                    <input class="form-control" type="text" placeholder="Nombre" asp-for="Nombre" />
+                                    <span asp-validation-for="Nombre" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Apellido</label>
+                                    <input class="form-control" type="text" placeholder="Apellido" asp-for="Apellido" />
+                                    <span asp-validation-for="Apellido" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Correo Electrónico</label>
+                                <input class="form-control" type="email" placeholder="correo@ejemplo.com" asp-for="Correo" />
+                                <span asp-validation-for="Correo" class="text-danger small"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Contraseña</label>
+                                    <input class="form-control" type="password" placeholder="******" asp-for="Contraseña" />
+                                    <span asp-validation-for="Contraseña" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Repetir Contraseña</label>
+                                    <input class="form-control" type="password" placeholder="******" asp-for="Repite_Contraseña" />
+                                    <span asp-validation-for="Repite_Contraseña" class="text-danger small"></span>
+                                </div>
+                            </div>
+                         
+                            <input type="hidden" asp-for="Id_Rol" value="2" />
+
+                            <div class="d-grid gap-2 mb-3">
+                                <button class="btn btn-success" type="submit">Registrarse</button>
+                            </div>
+                        </form>
+
+                        @if (ViewData["Mensaje"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["Mensaje"]
+                            </div>
+                        }
+
+                        <div class="text-center mt-3">
+                            ¿Ya tienes cuenta? <a asp-controller="Acceso" asp-action="Login">Inicia Sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>

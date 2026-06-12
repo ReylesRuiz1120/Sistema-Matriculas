@@ -1,0 +1,147 @@
+﻿@model T3_09.ViewModels.ProcesoMatriculaVM
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario de Matrícula</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .field-validation-error {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+        }
+
+        .input-validation-error {
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h4>Paso 2: Completar Datos</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="alert alert-info">
+                            Matriculando en: <strong>@Model.InfoVacante</strong>
+                            <br />
+                            <small>ID Interno: @Model.IdVacanteSeleccionada</small>
+                        </div>
+
+                        @if (ViewData["Error"] != null)
+                        {
+                            <div class="alert alert-danger">@ViewData["Error"]</div>
+                        }
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <form asp-action="Registrar" method="post" id="formMatricula">
+                            <input type="hidden" asp-for="IdVacanteSeleccionada" />
+                            <input type="hidden" asp-for="InfoVacante" />
+
+                            <h5 class="mb-3 text-secondary">Datos del Estudiante</h5>
+
+                            <div class="mb-3">
+                                <label class="form-label">Nombre Completo:</label>
+                                <input asp-for="NombreCompleto" class="form-control" placeholder="Ej: Juan Pérez" />
+                                <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">DNI:</label>
+                                    <input asp-for="Dni" class="form-control" placeholder="8 dígitos" />
+                                    <span asp-validation-for="Dni" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Fecha de Nacimiento:</label>
+                                    <input asp-for="FechaNacimiento" type="date" class="form-control" />
+                                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Dirección:</label>
+                                <input asp-for="Direccion" class="form-control" placeholder="Av. Siempre Viva 123" />
+                                <span asp-validation-for="Direccion" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Nombre del Apoderado:</label>
+                                <input asp-for="NombreApoderado" class="form-control" placeholder="Nombre del padre o tutor" />
+                                <span asp-validation-for="NombreApoderado" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="button" onclick="confirmarRegistro()" class="btn btn-success btn-lg">
+                                    Confirmar Matrícula
+                                </button>
+                                <a asp-action="Seleccion" class="btn btn-outline-secondary">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://lib.baomitu.com/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        function confirmarRegistro() {
+            var formulario = $('#formMatricula');
+
+            
+            if (!formulario.valid()) {
+                return;
+            }
+
+            var inputFecha = document.getElementById('FechaNacimiento').value;
+            if (inputFecha) {
+                var fechaNac = new Date(inputFecha);
+                var hoy = new Date();
+                var edad = hoy.getFullYear() - fechaNac.getFullYear();
+                var m = hoy.getMonth() - fechaNac.getMonth();
+
+               
+                if (m < 0 || (m === 0 && hoy.getDate() < fechaNac.getDate())) {
+                    edad--;
+                }
+       
+                if (edad < 11 || edad > 18) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Edad no permitida',
+                        text: 'El estudiante debe tener entre 11 y 18 años. Edad calculada: ' + edad + ' años.'
+                    });
+                    return; 
+                }
+            }
+
+           
+            Swal.fire({
+                title: '¡Vacante Reservada!',
+                text: "Para confirmar su vacante, acérquese a la institución a realizar el pago.",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#198754',
+                confirmButtonText: 'Entendido, finalizar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formulario.submit();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

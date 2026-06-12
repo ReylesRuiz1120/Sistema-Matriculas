@@ -1,0 +1,118 @@
+﻿@model T3_09.Models.Estudiante
+
+@{
+    ViewData["Title"] = "Crear Estudiante";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 rounded-3 overflow-hidden">
+
+                <div class="card-header bg-primary bg-gradient text-white text-center py-3">
+                    <h3 class="fw-bold mb-0 text-uppercase">
+                        <i class="bi bi-person-plus-fill me-2"></i> CREAR ESTUDIANTE
+                    </h3>
+                    <p class="mb-0 small fw-bold opacity-75">Registrar nueva información académica</p>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+
+                    <form asp-action="Crear">
+
+                        <h6 class="text-muted text-uppercase fw-bold mb-3 border-bottom pb-2">
+                            <i class="bi bi-person-badge"></i> Datos Personales
+                        </h6>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Nombre Completo</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-primary"><i class="bi bi-person-fill"></i></span>
+                                <input asp-for="NombreCompleto" class="form-control border-start-0 ps-0" placeholder="Ej: Juan Pérez" />
+                            </div>
+                            <span asp-validation-for="NombreCompleto" class="text-danger small fw-bold"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-bold">DNI</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0 text-primary"><i class="bi bi-card-heading"></i></span>
+                                    <input asp-for="Dni" class="form-control border-start-0 ps-0" placeholder="8 dígitos" />
+                                </div>
+                                <span asp-validation-for="Dni" class="text-danger small fw-bold"></span>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0 text-success"><i class="bi bi-calendar-check-fill"></i></span>
+                                    <input asp-for="FechaNacimiento" type="date" class="form-control border-start-0 ps-0" />
+                                </div>
+                                <span asp-validation-for="FechaNacimiento" class="text-danger small fw-bold"></span>
+                            </div>
+                        </div>
+
+                        @if (ViewBag.ListaVacantes != null)
+                        {
+                            <h6 class="text-muted text-uppercase fw-bold mb-3 border-bottom pb-2 mt-3">
+                                <i class="bi bi-mortarboard-fill"></i> Información Académica
+                            </h6>
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Seleccionar Grado y Sección</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0 text-primary">
+                                        <i class="bi bi-bookmarks-fill"></i>
+                                    </span>
+                                    <select name="IdVacanteSeleccionada" class="form-select border-start-0 ps-0" asp-items="ViewBag.ListaVacantes">
+                                        <option value="">-- Solo registrar (Sin matricular aún) --</option>
+                                    </select>
+                                </div>
+                                <small class="text-muted">Si selecciona un grado, el estudiante será matriculado automáticamente.</small>
+                            </div>
+                        }
+
+                        <h6 class="text-muted text-uppercase fw-bold mb-3 border-bottom pb-2 mt-3">
+                            <i class="bi bi-house-door"></i> Ubicación y Familia
+                        </h6>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Dirección</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-danger"><i class="bi bi-geo-alt-fill"></i></span>
+                                <input asp-for="Direccion" class="form-control border-start-0 ps-0" placeholder="Dirección del domicilio..." />
+                            </div>
+                            <span asp-validation-for="Direccion" class="text-danger small fw-bold"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Apoderado</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-warning"><i class="bi bi-people-fill"></i></span>
+                                <input asp-for="NombreApoderado" class="form-control border-start-0 ps-0" placeholder="Nombre del padre o tutor" />
+                            </div>
+                            <span asp-validation-for="NombreApoderado" class="text-danger small fw-bold"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5 pt-3 border-top">
+                            <a asp-action="Listar" class="btn btn-outline-secondary px-4 fw-bold rounded-pill">
+                                <i class="bi bi-x-lg"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success px-5 fw-bold rounded-pill shadow-sm">
+                                <i class="bi bi-save-fill"></i> GUARDAR REGISTRO
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
