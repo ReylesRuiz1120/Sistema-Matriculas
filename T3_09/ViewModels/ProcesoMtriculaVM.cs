@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace T3_09.ViewModels
 {
@@ -20,7 +22,6 @@ namespace T3_09.ViewModels
 
         [Required(ErrorMessage = "La fecha es obligatoria")]
         [DataType(DataType.Date)]
- 
         [EdadEscolar(11, 18, ErrorMessage = "La edad debe estar entre 11 y 18 años.")]
         public DateTime FechaNacimiento { get; set; }
 
@@ -38,7 +39,7 @@ namespace T3_09.ViewModels
         private readonly int _max;
         public EdadEscolarAttribute(int min, int max) { _min = min; _max = max; }
 
-        protected override ValidationResult IsValid(object value, ValidationContext ctx)
+        protected override ValidationResult? IsValid(object? value, ValidationContext? ctx)
         {
             if (value is DateTime fecha)
             {

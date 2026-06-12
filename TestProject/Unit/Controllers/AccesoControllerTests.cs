@@ -34,6 +34,7 @@ namespace TestProject.Unit.Controllers
 
         [TestMethod]
         // Si las contraseñas no coinciden, debe devolver la vista y establecer ViewData["Mensaje"].
+        // Si las contraseñas no coinciden, debe devolver la vista y establecer ViewData["Mensaje"].
         public async System.Threading.Tasks.Task Registro_ReturnsView_When_PasswordsDontMatch()
         {
             var ctx = TestDbContextFactory.Create("acc_reg_pass");
