@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+Ôªøusing Microsoft.VisualStudio.TestTools.UnitTesting;
 using T3_09.Controllers;
 using T3_09.ViewModels;
 using TestProject.Helpers;
@@ -10,21 +10,21 @@ namespace TestProject.Unit.Controllers
 {
     /*
      * Pruebas para `AccesoController` que cubren:
-     * - Flujo de registro (casos de email existente, contraseÒas no coinciden, ModelState inv·lido y Èxito).
-     * - Flujo de login con redirecciones seg˙n el rol del usuario.
-     * Objetivo: validar la lÛgica de control de acceso y mensajes de error.
+     * - Flujo de registro (casos de email existente, contrase√±as no coinciden, ModelState inv√°lido y √©xito).
+     * - Flujo de login con redirecciones seg√∫n el rol del usuario.
+     * Objetivo: validar la l√≥gica de control de acceso y mensajes de error.
      */
     [TestClass]
     public class AccesoControllerTests
     {
         [TestMethod]
-        // Si el correo ya existe, se debe devolver la vista con el mismo modelo y mostrar mensaje.
+   
         public async System.Threading.Tasks.Task Registro_ReturnsView_When_EmailExists()
         {
             var ctx = TestDbContextFactory.Create("acc_reg_email");
             var controller = new AccesoController(ctx);
             controller.TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider());
-            var vm = new UsuarioVM { Nombre = "X", Apellido = "Y", Correo = "admin@sanandres.edu.pe", ContraseÒa = "p", Repite_ContraseÒa = "p", Id_Rol = 2 };
+            var vm = new UsuarioVM { Nombre = "X", Apellido = "Y", Correo = "admin@sanandres.edu.pe", Contrase√±a = "p", Repite_Contrase√±a = "p", Id_Rol = 2 };
             var result = await controller.Registro(vm);
             var view = result as ViewResult;
             Assert.IsNotNull(view);
@@ -32,13 +32,13 @@ namespace TestProject.Unit.Controllers
         }
 
         [TestMethod]
-        // Si las contraseÒas no coinciden, debe devolver la vista y establecer ViewData["Mensaje"].
+        // Si las contrase√±as no coinciden, debe devolver la vista y establecer ViewData["Mensaje"].
         public async System.Threading.Tasks.Task Registro_ReturnsView_When_PasswordsDontMatch()
         {
             var ctx = TestDbContextFactory.Create("acc_reg_pass");
             var controller = new AccesoController(ctx);
             controller.TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider());
-            var vm = new UsuarioVM { Nombre = "X", Apellido = "Y", Correo = "new@ex.com", ContraseÒa = "a", Repite_ContraseÒa = "b", Id_Rol = 2 };
+            var vm = new UsuarioVM { Nombre = "X", Apellido = "Y", Correo = "new@ex.com", Contrase√±a = "a", Repite_Contrase√±a = "b", Id_Rol = 2 };
             var result = await controller.Registro(vm);
             var view = result as ViewResult;
             Assert.IsNotNull(view);
@@ -46,7 +46,7 @@ namespace TestProject.Unit.Controllers
         }
 
         [TestMethod]
-        // Si ModelState es inv·lido, la acciÛn de registro debe devolver la vista sin procesar.
+        // Si ModelState es inv√°lido, la acci√≥n de registro debe devolver la vista sin procesar.
         public async System.Threading.Tasks.Task Registro_ModelStateInvalid_ReturnsView()
         {
             var ctx = TestDbContextFactory.Create("acc_reg_invalid");
@@ -59,13 +59,13 @@ namespace TestProject.Unit.Controllers
         }
 
         [TestMethod]
-        // Credenciales inv·lidas en login deben devolver la vista y mostrar mensaje.
+        // Credenciales inv√°lidas en login deben devolver la vista y mostrar mensaje.
         public async System.Threading.Tasks.Task Login_Post_InvalidCredentials_ReturnsViewWithMessage()
         {
             var ctx = TestDbContextFactory.Create("acc_login_invalid");
             var controller = new AccesoController(ctx);
             controller.TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider());
-            var vm = new LoginVM { Correo = "nope@x.com", ContraseÒa = "wrong" };
+            var vm = new LoginVM { Correo = "nope@x.com", Contrase√±a = "wrong" };
             var result = await controller.Login(vm);
             var view = result as ViewResult;
             Assert.IsNotNull(view);
@@ -79,7 +79,7 @@ namespace TestProject.Unit.Controllers
             var ctx = TestDbContextFactory.Create("acc_login_admin");
             var controller = new AccesoController(ctx);
             controller.TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider());
-            var vm = new LoginVM { Correo = "admin@sanandres.edu.pe", ContraseÒa = "admin720650" };
+            var vm = new LoginVM { Correo = "admin@sanandres.edu.pe", Contrase√±a = "admin720650" };
             var result = await controller.Login(vm) as RedirectToActionResult;
             Assert.IsNotNull(result);
             Assert.AreEqual("Listar", result.ActionName);
@@ -87,7 +87,7 @@ namespace TestProject.Unit.Controllers
         }
 
         [TestMethod]
-        // Login para rol Usuario debe redirigir a la selecciÛn de matrÌcula.
+        // Login para rol Usuario debe redirigir a la selecci√≥n de matr√≠cula.
         public async System.Threading.Tasks.Task Login_Post_User_Redirects_To_Matricula()
         {
             var ctx = TestDbContextFactory.Create("acc_login_user");
@@ -96,7 +96,7 @@ namespace TestProject.Unit.Controllers
             ctx.SaveChanges();
             var controller = new AccesoController(ctx);
             controller.TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider());
-            var vm = new LoginVM { Correo = "u@x.com", ContraseÒa = "p" };
+            var vm = new LoginVM { Correo = "u@x.com", Contrase√±a = "p" };
             var result = await controller.Login(vm) as RedirectToActionResult;
             Assert.IsNotNull(result);
             Assert.AreEqual("Seleccion", result.ActionName);
@@ -113,7 +113,7 @@ namespace TestProject.Unit.Controllers
             ctx.SaveChanges();
             var controller = new AccesoController(ctx);
             controller.TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider());
-            var vm = new LoginVM { Correo = "v@x.com", ContraseÒa = "p" };
+            var vm = new LoginVM { Correo = "v@x.com", Contrase√±a = "p" };
             var result = await controller.Login(vm) as RedirectToActionResult;
             Assert.IsNotNull(result);
             Assert.AreEqual("Index", result.ActionName);
@@ -127,7 +127,7 @@ namespace TestProject.Unit.Controllers
             var ctx = TestDbContextFactory.Create("acc_reg_success");
             var controller = new AccesoController(ctx);
             controller.TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider());
-            var vm = new UsuarioVM { Nombre = "New", Apellido = "User", Correo = "new@x.com", ContraseÒa = "p", Repite_ContraseÒa = "p", Id_Rol = 2 };
+            var vm = new UsuarioVM { Nombre = "New", Apellido = "User", Correo = "new@x.com", Contrase√±a = "p", Repite_Contrase√±a = "p", Id_Rol = 2 };
             var result = await controller.Registro(vm) as RedirectToActionResult;
             Assert.IsNotNull(result);
             Assert.AreEqual("Login", result.ActionName);
